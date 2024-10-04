@@ -1,6 +1,9 @@
 <template>
+  <router-link to="/article/3">
+    Go to a different article
+  </router-link>
   <div v-if="Object.keys(article).length !== 0">
-    <div class="p-4 p-md-5 mb-4 text-white rounded bg-dark">
+    <!-- <div class="p-4 p-md-5 mb-4 text-white rounded bg-dark">
       <div class="col-md-6 px-0">
         <h1 class="display-4 fst-italic">
           Incididunt ut labore et dolore magna aliqua
@@ -11,7 +14,7 @@
           veniam, quis nostrud exercitation
         </p>
       </div>
-    </div>
+    </div> -->
 
     <div class="row g-5">
       <div class="col-md-8">
@@ -67,7 +70,7 @@
 
 <script setup>
   import axios from 'axios'
-  import { onMounted, ref } from 'vue';
+  import { onMounted, ref, watch } from 'vue';
   import { useRoute } from 'vue-router';
   
   const route = useRoute();
@@ -84,6 +87,12 @@
     loadArticleData(route.params.articleID)
   })
   
+  watch(
+    () => route.params.articleID,
+    async newId => {
+      loadArticleData(newId)
+    }
+  )
 
 
 </script>
